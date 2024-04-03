@@ -119,9 +119,14 @@ document.addEventListener('DOMContentLoaded', function() {
             results.classList.remove('hidden');
             questionnaire.classList.add('hidden');
             document.getElementById('wordCountValue').textContent = wordCount;
-            document.getElementById('readingSpeedValue').textContent = `${calculateReadingSpeed(startTime, endTime, wordCount)} palabras por minuto`;
-            document.getElementById('comprehensionValue').textContent = `${comprehensionPercentage}%`;
+            document.getElementById('readingSpeedValue').textContent = `${calculateReadingSpeed(startTime, endTime, wordCount)}`;
+            document.getElementById('comprehensionValue').textContent = `${comprehensionPercentage}`;
             
+        }
+    });
+
+});
+
         }
     });
 
