@@ -18,6 +18,12 @@ body {
     text-align: center;
 }
 
+.container h2 {
+    font-weight:700;
+    line-height: 1.6;
+    
+}
+
 /* Ajustes para los botones */
 button {
     padding: 10px 20px;
@@ -42,6 +48,10 @@ button:hover {
     margin-bottom: 20px; /* Añadir margen inferior para separar del botón */
     text-align:justify; /* Justificar el texto */
     line-height: 1.6; /* Ajustar el espaciado entre líneas */
+}
+#textToRead {
+    overflow-y: auto;
+    max-height: 400px; /* Puedes ajustar la altura máxima según tus necesidades */
 }
 
 /* Estilo para el contenedor de preguntas */
@@ -71,6 +81,10 @@ button:hover {
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
     text-align: left;
 }
+
+#results div {
+    margin-bottom: 5px;
+}
 /* Estilo para el texto de la historia */
 #textToRead {
     text-align: justify; /* Justificar el texto */
@@ -82,4 +96,6 @@ button:hover {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Añadir sombra para resaltar */
 }
 
+.lastParagrah {
+    color: firebrick;
 }
