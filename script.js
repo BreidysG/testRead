@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
+    const titleInit = document.getElementById("titleInit");
     const paragraphInit = document.getElementById("paragraphInit");
     const startButton = document.getElementById('startButton');
     const textContainer = document.getElementById('textContainer');
@@ -8,6 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const results = document.getElementById('results');
     const questionOptions = document.querySelector('.question-options'); // Contenedor de las opciones de pregunta
     const timerValue = document.getElementById('timerValue');
+    let time = [];
 
     let wordCount = 0;
     let startTime, endTime;
@@ -70,11 +72,13 @@ document.addEventListener('DOMContentLoaded', function() {
     function updateTimer() {
         const currentTime = Math.floor((Date.now() - startTime) / 1000); // Tiempo transcurrido en segundos
         timerValue.textContent = currentTime;
+        time.push(currentTime);
     }
 
     // Evento para finalizar el test al hacer clic en "Terminar Test"
     finishButton.addEventListener('click', function() {
         clearInterval(timerInterval); // Detener el contador
+        titleInit.classList.add("hidden");
         textContainer.classList.add('hidden');
         finishButton.classList.add('hidden');
         endTime = Date.now();
@@ -114,6 +118,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
             
             let comprehensionPercentage = (correctAnswers / totalQuestions) * 100;
+            let timeResult = time[time.length-1];
             
             quizCompleted = true;
             results.classList.remove('hidden');
@@ -121,6 +126,8 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('wordCountValue').textContent = wordCount;
             document.getElementById('readingSpeedValue').textContent = `${calculateReadingSpeed(startTime, endTime, wordCount)}`;
             document.getElementById('comprehensionValue').textContent = `${comprehensionPercentage}`;
+            document.getElementById('timeResultValue').textContent = `${timeResult}`;
+            document.getElementById('results').innerHTML += '<p class="lastParagrah">Toma nota de tu velocidad de lectura para poder realizar ajustes en los próximos ejercicios.</p>';
             
         }
     });
