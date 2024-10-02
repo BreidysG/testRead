@@ -127,7 +127,10 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('readingSpeedValue').textContent = `${calculateReadingSpeed(startTime, endTime, wordCount)}`;
             document.getElementById('comprehensionValue').textContent = `${comprehensionPercentage}`;
             document.getElementById('timeResultValue').textContent = `${timeResult}`;
-            document.getElementById('results').innerHTML += '<p class="lastParagrah">Toma nota de tu velocidad de lectura para poder realizar ajustes en los próximos ejercicios.</p>';
+            document.getElementById('results').innerHTML += '<p class="lastParagrah">Toma nota de tu velocidad de lectura para poder realizar ajustes en los próximos ejercicios.</p><p class="finalMessage">Puedes salir y pasar a la siguiente clase.</p>'
+            ;
+
+            
             
         }
     });
