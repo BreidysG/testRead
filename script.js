@@ -7,7 +7,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const questionnaire = document.getElementById('questionnaire');
     const quizForm = document.getElementById('quizForm');
     const results = document.getElementById('results');
-    const questionOptions = document.querySelector('.question-options'); // Contenedor de las opciones de pregunta
     const timerValue = document.getElementById('timerValue');
     let time = [];
 
@@ -97,11 +96,11 @@ document.addEventListener('DOMContentLoaded', function() {
     quizForm.addEventListener('submit', function(event) {
         event.preventDefault();
         if (!quizCompleted) {
-            let anyAnswerSelected = true; // Inicialmente, asumimos que al menos una opción está seleccionada
+            let anyAnswerSelected = true;
 
             questions.forEach((question, index) => {
                 const selectedAnswer = document.querySelector(`input[name="answer${index}"]:checked`);
-                if (!selectedAnswer) { // Si ninguna opción está seleccionada para alguna pregunta
+                if (!selectedAnswer) {
                     anyAnswerSelected = false;
                     return;
                 }
@@ -114,28 +113,29 @@ document.addEventListener('DOMContentLoaded', function() {
 
             let correctAnswers = 0;
             let totalQuestions = questions.length;
-            
+
             questions.forEach((question, index) => {
                 const selectedAnswer = document.querySelector(`input[name="answer${index}"]:checked`);
                 if (selectedAnswer && selectedAnswer.value === question.correctAnswer) {
                     correctAnswers++;
                 }
             });
-            
+
             let comprehensionPercentage = (correctAnswers / totalQuestions) * 100;
             let timeResult = time[time.length-1];
-            
-            // Calcular velocidad recomendada
-            const recommendedSpeed = 330; // Valor de referencia de velocidad en palabras por minuto
-            const timePerWordInMs = calculateTimePerWord(recommendedSpeed);
+
+            const readingSpeed = calculateReadingSpeed(startTime, endTime, wordCount); // Usar la velocidad de lectura real
+            const timePerWordInMs = calculateTimePerWord(readingSpeed); // Ajustar el tiempo por palabra basado en la velocidad de lectura real
             
             quizCompleted = true;
             results.classList.remove('hidden');
             questionnaire.classList.add('hidden');
             document.getElementById('wordCountValue').textContent = wordCount;
-            document.getElementById('readingSpeedValue').textContent = `${calculateReadingSpeed(startTime, endTime, wordCount)}`;
+            document.getElementById('readingSpeedValue').textContent = `${readingSpeed} palabras por minuto`;
             document.getElementById('comprehensionValue').textContent = `${comprehensionPercentage}`;
-            document.getElementById('timeResultValue').textContent = `${timeResult}`;
+            document.getElementById('timeResultValue').textContent = `${timeResult} segundos`;
+
+            // Mostrar tiempo por palabra ajustado
             document.getElementById('results').innerHTML += `
                 <p class="lastParagrah">Toma nota de tu velocidad de lectura para poder realizar ajustes en los próximos ejercicios.</p>
                 <p class="finalMessage">Puedes salir y pasar a la siguiente clase.</p>
