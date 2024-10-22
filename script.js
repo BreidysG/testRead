@@ -30,10 +30,15 @@ document.addEventListener('DOMContentLoaded', function() {
         return text.split(/\s+/).length;
     }
 
-    // Función para calcular la velocidad de lectura
+    // Función para calcular la velocidad de lectura (palabras por minuto)
     function calculateReadingSpeed(startTime, endTime, wordCount) {
         const minutes = (endTime - startTime) / 60000; // Convertir a minutos
         return Math.round(wordCount / minutes);
+    }
+
+    // Función para calcular el tiempo por palabra en milisegundos
+    function calculateTimePerWord(ppm) {
+        return Math.round(60000 / ppm); // ms por palabra
     }
 
     // Función para mostrar las preguntas del cuestionario
@@ -120,6 +125,10 @@ document.addEventListener('DOMContentLoaded', function() {
             let comprehensionPercentage = (correctAnswers / totalQuestions) * 100;
             let timeResult = time[time.length-1];
             
+            // Calcular velocidad recomendada
+            const recommendedSpeed = 330; // Valor de referencia de velocidad en palabras por minuto
+            const timePerWordInMs = calculateTimePerWord(recommendedSpeed);
+            
             quizCompleted = true;
             results.classList.remove('hidden');
             questionnaire.classList.add('hidden');
@@ -127,12 +136,11 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('readingSpeedValue').textContent = `${calculateReadingSpeed(startTime, endTime, wordCount)}`;
             document.getElementById('comprehensionValue').textContent = `${comprehensionPercentage}`;
             document.getElementById('timeResultValue').textContent = `${timeResult}`;
-            document.getElementById('results').innerHTML += '<p class="lastParagrah">Toma nota de tu velocidad de lectura para poder realizar ajustes en los próximos ejercicios.</p><p class="finalMessage">Puedes salir y pasar a la siguiente clase.</p>'
-            ;
-
-            
-            
+            document.getElementById('results').innerHTML += `
+                <p class="lastParagrah">Toma nota de tu velocidad de lectura para poder realizar ajustes en los próximos ejercicios.</p>
+                <p class="finalMessage">Puedes salir y pasar a la siguiente clase.</p>
+                <p>Ajusta esta velocidad en tus ejercicios: ${timePerWordInMs} milisegundos por palabra</p>
+            `;
         }
     });
-
 });
